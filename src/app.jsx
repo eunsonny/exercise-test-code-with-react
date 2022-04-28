@@ -5,7 +5,7 @@ import './app.css';
 import Habits from './components/habits';
 import Navbar from './components/navbar';
 
-const App = ({presenter}) => {
+const App = ({ presenter }) => {
   const [habits, setHabits] = useState(presenter.getHabits());
 
   const handleIncrement = useCallback(habit => {
