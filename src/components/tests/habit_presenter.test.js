@@ -64,12 +64,23 @@ describe('HabitPresenter', () => {
     expect(() => {presenter.add('Eating', update);}).toThrow('습관의 갯수는 3 이상이 될 수 없습니다.')
   })
 
-  it('resets all habit counts to 0', () => {
-    presenter.reset(update);
-    expect(presenter.getHabits()[0].count).toBe(0);
-    expect(presenter.getHabits()[1].count).toBe(0);
-    checkUpdateIsCalled();
-  });
+  
+  describe('reset', () => {
+    it('resets all habit counts to 0', () => {
+      presenter.reset(update);
+      expect(presenter.getHabits()[0].count).toBe(0);
+      expect(presenter.getHabits()[1].count).toBe(0);
+      checkUpdateIsCalled();
+    });
+    
+    it('dose not create new object when count is 0', () => {
+      const habits = presenter.getHabits();
+      presenter.reset(update);
+      const updatedHabits = presenter.getHabits();
+
+      expect(updatedHabits[1]).toBe(habits[1]);
+    })
+  })
 
   function checkUpdateIsCalled() {
     expect(update).toHaveBeenCalledTimes(1);
